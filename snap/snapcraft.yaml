@@ -1,0 +1,69 @@
+name: srsran5g
+base: core22
+version: '24.04'
+summary: srsRAN 5G is a 5G software radio suite developed by SRS.
+description: |
+  srsRAN 5G is a free and open-source 5G software radio suite.
+
+  It implements an integrated gNodeB (both CU and DU functions) that can be
+  used with real radios or with a simulated radio over ZeroMQ. The srsRAN 4G
+  project contains a simulated UE that can be used with this gNodeB for
+  testing. For more information, see https://www.srsran.com/.
+
+website: https://www.srsran.com/
+source-code: https://github.com/canonical/srsran5g-snap
+icon: snap/local/srsran.png
+license: AGPL-3.0
+grade: stable
+confinement: strict
+
+apps:
+  gnb:
+    command: usr/local/bin/gnb
+    plugs:
+      - kernel-module-observe
+      - process-control
+      - network
+      - network-bind
+      - network-control
+      - system-observe
+
+parts:
+  srsran:
+    plugin: cmake
+    source: https://github.com/srsRAN/srsRAN_Project.git
+    source-type: git
+    source-tag: release_24_04
+    cmake-parameters:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DENABLE_ZEROMQ=On
+      - -DENABLE_ASAN=True
+      - -DAUTO_DETECT_ISA=OFF
+      - -DBUILD_TESTS=OFF
+      - -DHAVE_SSE=True
+      - -DHAVE_AVX=True
+      - -DGCC_ARCH=x86-64
+    build-packages:
+      - binutils-dev
+      - libdwarf-dev
+      - libdw-dev
+      - libelf-dev
+      - libfftw3-dev
+      - libgtest-dev
+      - libmbedtls-dev
+      - libsctp-dev
+      - libyaml-cpp-dev
+      - libzmq3-dev
+      - pkg-config
+    stage-packages:
+      - libasan6
+      - libdw1
+      - libfftw3-single3
+      - libmbedcrypto7
+      - libsctp1
+      - libyaml-cpp0.7
+      - libzmq5
+    prime:
+      - -usr/lib/x86_64-linux-gnu/libfftw3f_omp.so.3.5.8
+      - -usr/lib/x86_64-linux-gnu/libfftw3f_threads.so.3.5.8
+      - -usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
