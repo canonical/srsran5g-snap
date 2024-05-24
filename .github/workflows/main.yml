@@ -29,6 +29,7 @@ jobs:
     name: Publish srsRAN 5G snap
     runs-on: ubuntu-22.04
     needs: build
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
