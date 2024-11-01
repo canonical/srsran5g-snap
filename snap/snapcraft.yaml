@@ -1,6 +1,6 @@
 name: srsran5g
 base: core22
-version: '24.04'
+version: '24.10'
 summary: srsRAN 5G is a 5G software radio suite developed by SRS.
 description: |
   srsRAN 5G is a free and open-source 5G software radio suite.
@@ -33,7 +33,7 @@ parts:
     plugin: cmake
     source: https://github.com/srsRAN/srsRAN_Project.git
     source-type: git
-    source-tag: release_24_04
+    source-tag: release_24_10
     cmake-parameters:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - -DENABLE_ZEROMQ=On
